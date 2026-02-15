@@ -30,23 +30,18 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") String id) {
-        try {
-            User user = this.userService.findById(Long.valueOf(id));
+        User user = this.userService.findById(Long.valueOf(id));
 
             if (user == null) {
                 return ResponseEntity.notFound().build();
             }
 
             return ResponseEntity.ok().body(this.userMapper.toDto(user));
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().build();
         }
-    }
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> save(@PathVariable("id") String id) {
-        try {
-            User user = this.userService.findById(Long.valueOf(id));
+        User user = this.userService.findById(Long.valueOf(id));
 
             if (user == null) {
                 return ResponseEntity.notFound().build();
@@ -60,8 +55,5 @@ public class UserController {
 
             this.userService.delete(Long.parseLong(id));
             return ResponseEntity.ok().build();
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().build();
         }
-    }
 }
