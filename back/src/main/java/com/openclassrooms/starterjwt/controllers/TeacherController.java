@@ -18,21 +18,14 @@ public class TeacherController {
     private final TeacherService teacherService;
 
 
-    public TeacherController(TeacherService teacherService,
-                             TeacherMapper teacherMapper) {
+    public TeacherController(TeacherService teacherService, TeacherMapper teacherMapper) {
         this.teacherMapper = teacherMapper;
         this.teacherService = teacherService;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") String id) {
-        Teacher teacher = this.teacherService.findById(Long.valueOf(id));
-
-            if (teacher == null) {
-                return ResponseEntity.notFound().build();
-            }
-
-            return ResponseEntity.ok().body(this.teacherMapper.toDto(teacher));
+       return teacherService.findByIdResponse(Long.parseLong(id));
         }
 
     @GetMapping()
