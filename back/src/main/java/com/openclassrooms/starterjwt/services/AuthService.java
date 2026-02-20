@@ -34,7 +34,7 @@ public class AuthService {
     }
     
     
-    public ResponseEntity<?> loginUser (LoginRequest loginRequest) {
+    public JwtResponse loginUser (LoginRequest loginRequest) {
     	Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
@@ -47,21 +47,20 @@ public class AuthService {
         if (user != null) {
             isAdmin = user.isAdmin();
         }
-
-        return ResponseEntity.ok(new JwtResponse(jwt,
+        JwtResponse jwtResponse = new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getFirstName(),
                 userDetails.getLastName(),
-                isAdmin));
+                isAdmin);
+
+        return jwtResponse;
     }
     
     
-    public ResponseEntity<?> registerUser (SignupRequest signUpRequest) {
+    public User registerUser (SignupRequest signUpRequest) {
     	if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Email is already taken!"));
+            return null;
         }
 
         // Create new user's account
@@ -71,8 +70,8 @@ public class AuthService {
                 passwordEncoder.encode(signUpRequest.getPassword()),
                 false);
 
-        userRepository.save(user);
+        User createdUser = userRepository.save(user);
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        return createdUser;
     }
 }
