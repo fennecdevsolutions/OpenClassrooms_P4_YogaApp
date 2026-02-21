@@ -1,5 +1,14 @@
 package com.openclassrooms.starterjwt.services;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -7,15 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.Optional;
-
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -98,7 +98,7 @@ class AuthServiceTest {
 			assertThat(response.getAdmin()).isTrue();
 			assertThat(response.getFirstName()).isEqualTo("John");
 			assertThat(response.getLastName()).isEqualTo("Doe");
-			verify(userRepository).findByEmail("test@mail.com");
+			verify(userRepository, times(1)).findByEmail("test@mail.com");
 
 		}
 
@@ -125,7 +125,7 @@ class AuthServiceTest {
 			assertThat(response.getAdmin()).isFalse();
 			assertThat(response.getFirstName()).isEqualTo("John");
 			assertThat(response.getLastName()).isEqualTo("Doe");
-			verify(userRepository).findByEmail("test@mail.com");
+			verify(userRepository, times(1)).findByEmail("test@mail.com");
 
 		}
 
@@ -150,7 +150,7 @@ class AuthServiceTest {
 			assertThat(response.getAdmin()).isFalse();
 			assertThat(response.getFirstName()).isEqualTo("John");
 			assertThat(response.getLastName()).isEqualTo("Doe");
-			verify(userRepository).findByEmail("test@mail.com");
+			verify(userRepository, times(1)).findByEmail("test@mail.com");
 
 		}
 	}
@@ -195,9 +195,9 @@ class AuthServiceTest {
 			assertThat(savedUser.getPassword()).isEqualTo("EncodedPassword");
 			assertThat(savedUser.getEmail()).isEqualTo(signupRequest.getEmail());
 
-			verify(userRepository).existsByEmail("test@mail.com");
-			verify(userRepository).save(user);
-			verify(passwordEncoder).encode(signupRequest.getPassword());
+			verify(userRepository, times(1)).existsByEmail("test@mail.com");
+			verify(userRepository, times(1)).save(user);
+			verify(passwordEncoder, times(1)).encode(signupRequest.getPassword());
 
 		}
 
@@ -213,7 +213,7 @@ class AuthServiceTest {
 
 			// Then
 			assertThat(savedUser).isNull();
-			verify(userRepository).existsByEmail("test@mail.com");
+			verify(userRepository, times(1)).existsByEmail("test@mail.com");
 			verify(userRepository, never()).save(user);
 			verify(passwordEncoder, never()).encode(signupRequest.getPassword());
 
