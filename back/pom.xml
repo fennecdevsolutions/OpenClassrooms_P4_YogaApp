@@ -100,6 +100,7 @@
 			<scope>test</scope>
 		</dependency>
 
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -149,6 +150,12 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
+				<configuration>
+					<excludes>
+						<exclude>com/openclassrooms/starterjwt/mapper/**</exclude>
+						<exclude>com/openclassrooms/starterjwt/dto/**</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 
 					<!-- Unit tests -->
@@ -182,6 +189,7 @@
 							<goal>merge</goal>
 						</goals>
 						<configuration>
+
 							<fileSets>
 								<fileSet>
 									<directory>${project.build.directory}</directory>
@@ -223,7 +231,7 @@
 										<limit>
 											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.7</minimum>
+											<minimum>0.8</minimum>
 										</limit>
 									</limits>
 								</rule>
