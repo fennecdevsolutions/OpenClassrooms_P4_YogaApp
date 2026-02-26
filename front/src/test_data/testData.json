@@ -1,0 +1,91 @@
+{
+    "tables": {
+        "users": [
+            {
+                "id": 1,
+                "email": "yoga@studio.com",
+                "lastName": "Admin",
+                "firstName": "Admin",
+                "admin": true,
+                "password": "test!1234",
+                "createdAt": "2026-02-17 17:20:24",
+                "updatedAt": "2026-02-17 17:20:24"
+            },
+            {
+                "id": 2,
+                "email": "student@example.com",
+                "lastName": "Doe",
+                "firstName": "John",
+                "admin": false,
+                "password": "password",
+                "createdAt": "2026-02-17 17:20:24",
+                "updatedAt": "2026-02-17 17:20:24"
+            }
+        ],
+        "teachers": [
+            {
+                "id": 1,
+                "lastName": "McTeacher",
+                "firstName": "teacher1",
+                "createdAt": "2026-02-17 17:20:24",
+                "updatedAt": "2026-02-17 17:20:24"
+            },
+            {
+                "id": 2,
+                "lastName": "McTeacher",
+                "firstName": "teacher2",
+                "createdAt": "2026-02-17 17:20:24",
+                "updatedAt": "2026-02-17 17:20:24"
+            }
+        ],
+        "sessions": [
+            {
+                "id": 1,
+                "name": "Easy Yoga",
+                "description": "Yoga for starters",
+                "date": "2026-03-25 08:30:00",
+                "teacher_id": 1,
+                "users": [
+                    2
+                ],
+                "createdAt": "2026-02-17 17:20:24",
+                "updatedAt": "2026-02-17 17:20:24"
+            },
+            {
+                "id": 2,
+                "name": "Hard Yoga",
+                "description": "Yoga for the ones who can",
+                "date": "2026-03-25 08:30:00",
+                "teacher_id": 2,
+                "users": [
+                    1
+                ],
+                "createdAt": "2026-02-17 17:20:24",
+                "updatedAt": "2026-02-17 17:20:24"
+            }
+        ]
+    },
+    "mockRequests": {
+        "loginRequest": {
+            "email": "yoga@studio.com",
+            "password": "test!1234"
+        },
+        "registerRequest": {
+            "email": "new.user@example.com",
+            "firstName": "Donald",
+            "lastName": "Orange",
+            "password": "1235"
+        }
+    },
+    "mockResponses": {
+        "sessionInformation": {
+            "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5b2dhQHN0dWRpby5jb20iLCJpYXQiOjE3NzIxMDI4NTQsImV4cCI6MTc3MjE4OTI1NH0.VFtibcYVsed90b7tzYv4SUNLJlWXwhRd6yNINHcT6_NMrMtM2-HEvLNke5OZyPOaksqkp_GKX9yDL8pDH-yY_g",
+            "type": "Bearer",
+            "id": 1,
+            "username": "yoga@studio.com",
+            "firstName": "Admin",
+            "lastName": "Admin",
+            "admin": true
+        }
+    }
+}

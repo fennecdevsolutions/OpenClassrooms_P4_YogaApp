@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {  ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -38,13 +38,13 @@ describe('FormComponent', () => {
         ReactiveFormsModule,
         MatSnackBarModule,
         MatSelectModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        FormComponent
       ],
       providers: [
         { provide: SessionService, useValue: mockSessionService },
         SessionApiService
       ],
-      declarations: [FormComponent]
     })
       .compileComponents();
 

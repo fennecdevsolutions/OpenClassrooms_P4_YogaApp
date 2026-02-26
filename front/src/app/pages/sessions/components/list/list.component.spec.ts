@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { expect } from '@jest/globals';
 import { SessionService } from 'src/app/core/service/session.service';
 
+import { provideRouter } from '@angular/router';
 import { ListComponent } from './list.component';
 
 describe('ListComponent', () => {
@@ -19,9 +20,8 @@ describe('ListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ListComponent],
-      imports: [HttpClientModule, MatCardModule, MatIconModule],
-      providers: [{ provide: SessionService, useValue: mockSessionService }]
+      imports: [ListComponent, HttpClientModule, MatCardModule, MatIconModule],
+      providers: [{ provide: SessionService, useValue: mockSessionService }, provideRouter([])]
     })
       .compileComponents();
 

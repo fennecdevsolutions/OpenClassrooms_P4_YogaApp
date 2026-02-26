@@ -9,7 +9,7 @@ describe('TeacherService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[
+      imports: [
         HttpClientModule
       ]
     });
