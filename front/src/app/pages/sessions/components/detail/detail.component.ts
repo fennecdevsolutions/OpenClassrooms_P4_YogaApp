@@ -1,15 +1,14 @@
+import { CommonModule } from "@angular/common";
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Session } from '../../../../core/models/session.interface';
 import { Teacher } from '../../../../core/models/teacher.interface';
+import { SessionApiService } from '../../../../core/service/session-api.service';
 import { SessionService } from '../../../../core/service/session.service';
 import { TeacherService } from '../../../../core/service/teacher.service';
-import { Session } from '../../../../core/models/session.interface';
-import { SessionApiService } from '../../../../core/service/session-api.service';
 import { MaterialModule } from "../../../../shared/material.module";
-import { CommonModule } from "@angular/common";
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-detail',
@@ -26,7 +25,7 @@ export class DetailComponent implements OnInit {
   public userId: string;
 
   private route = inject(ActivatedRoute);
-  private fb = inject(FormBuilder);
+
   private sessionService = inject(SessionService);
   private sessionApiService = inject(SessionApiService);
   private teacherService = inject(TeacherService);
@@ -53,9 +52,9 @@ export class DetailComponent implements OnInit {
       .delete(this.sessionId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-          this.matSnackBar.open('Session deleted !', 'Close', { duration: 3000 });
-          this.router.navigate(['sessions']);
-        }
+        this.matSnackBar.open('Session deleted !', 'Close', { duration: 3000 });
+        this.router.navigate(['sessions']);
+      }
       );
   }
 
