@@ -17,9 +17,10 @@
                     </button>
                 </mat-form-field>
             </mat-card-content>
-            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Submit</button>
+            <button data-testid="submit-button" mat-raised-button color="primary" type="submit"
+                [disabled]="form.invalid">Submit</button>
             @if (onError) {
-            <p class="error">An error occurred</p>
+            <p data-testid="error-text" class="error">An error occurred</p>
             }
         </form>
     </mat-card>

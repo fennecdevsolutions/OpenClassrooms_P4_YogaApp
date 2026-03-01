@@ -75,7 +75,7 @@
             "email": "new.user@example.com",
             "firstName": "Donald",
             "lastName": "Orange",
-            "password": "1235"
+            "password": "password"
         }
     },
     "mockResponses": {
