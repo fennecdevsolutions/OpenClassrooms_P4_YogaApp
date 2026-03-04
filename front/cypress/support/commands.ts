@@ -41,3 +41,44 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+declare namespace Cypress {
+    interface Chainable {
+        /**
+         * Custom command to select DOM element by data-testid attribute.
+         * @example cy.getBySel('greeting')
+         */
+        getByTestId(value: string): Chainable<JQuery<HTMLElement>>;
+        login(isAdmin?: boolean, sessions?: any[]): Chainable<void>;
+    }
+}
+
+
+
+
+
+Cypress.Commands.add('getByTestId', (selector, ...args) => {
+    return cy.get(`[data-testid="${selector}"]`, ...args);
+})
+
+
+Cypress.Commands.add('login', (isAdmin: boolean = false, sessions: any[] = []) => {
+    cy.intercept('POST', '/api/auth/login', {
+        body: {
+            id: isAdmin ? 1 : 10,
+            username: isAdmin ? 'adminUser' : 'User',
+            firstName: 'John',
+            lastName: 'Doe',
+            admin: isAdmin
+        },
+    }).as('loginRequest');
+
+    cy.intercept('GET', '/api/session', sessions).as('sessions');
+
+    cy.visit('/login');
+    cy.get('input[formControlName=email]').type('test@test.com');
+    cy.get('input[formControlName=password]').type('password123');
+    cy.getByTestId('submit-button').click();
+    cy.wait('@loginRequest');
+    cy.url().should('include', '/sessions');
+})

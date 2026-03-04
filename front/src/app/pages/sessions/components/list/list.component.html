@@ -13,8 +13,8 @@
       @for (session of sessions$ | async; track session.id) {
       <mat-card class="item" fxFlex>
         <mat-card-header>
-          <mat-card-title>{{ session.name }}</mat-card-title>
-          <mat-card-subtitle>
+          <mat-card-title data-testid="session-name">{{ session.name }}</mat-card-title>
+          <mat-card-subtitle data-testid="session-sub">
             Session on {{ session.date | date: 'longDate'}}
           </mat-card-subtitle>
         </mat-card-header>
@@ -22,12 +22,12 @@
           <img class="picture" src="../../../../../assets/sessions.png" alt="Yoga session">
         </div>
         <mat-card-content>
-          <p>
+          <p data-testid="session-description">
             {{ session.description }}
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button color="primary" [routerLink]="['detail',session.id]">
+          <button data-testid="detail-button" mat-raised-button color="primary" [routerLink]="['detail',session.id]">
             <mat-icon>search</mat-icon>
             <span class="ml1">Detail</span>
           </button>

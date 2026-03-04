@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { expect } from '@jest/globals';
+import { expect, jest } from '@jest/globals';
 
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { AuthService } from 'src/app/core/service/auth.service';
 import testData from '../../../test_data/testData.json';
 import { RegisterComponent } from './register.component';
 
 const mockRegisterRequest = testData.mockRequests.registerRequest;
-const mockAuthService = { register: jest.fn() }
+const mockAuthService = { register: jest.fn().mockReturnValue(of()) }
 const mockRouter = { navigate: jest.fn() }
 
 
@@ -18,7 +18,6 @@ describe('RegisterComponent', () => {
     let fixture: ComponentFixture<RegisterComponent>;
 
     beforeEach(async () => {
-        jest.resetAllMocks();
         await TestBed.configureTestingModule({
             imports: [RegisterComponent],
             providers: [
@@ -32,9 +31,7 @@ describe('RegisterComponent', () => {
         component = fixture.componentInstance;
 
     });
-    afterEach(() => {
-        jest.clearAllMocks();
-    })
+
 
 
     it('Should disable sumbit button until form is filled and valid then trigger AuthService.register when clicked', () => {
