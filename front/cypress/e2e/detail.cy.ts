@@ -1,3 +1,4 @@
+import { formatDate } from 'cypress/support/utils/date.utils';
 import testData from '../../src/test_data/testData.json';
 
 const mockSessions = testData.tables.sessions;
@@ -149,12 +150,3 @@ describe('Session Details e2e tests', () => {
 
     })
 })
-
-const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric'
-    }).format(date);
-};
